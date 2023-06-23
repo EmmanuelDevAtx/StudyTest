@@ -9,15 +9,32 @@ type Item {
   quantityUnits: String
 }
 
+type User {
+  id: ID!
+  fullName: String!
+  email: String!
+  roles: [String!]!
+  isActive: Boolean!
+}
+
+type LoginResponse {
+  token: String!
+  user: User!
+}
+
 type Query {
   items: [Item!]!
   findItem(id: String!): Item!
+  users: [User!]!
+  user(id: Int!): User!
 }
 
 type Mutation {
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!): Item!
   removeItem(id: ID!): Item!
+  removeUser(id: Int!): User!
+  signup(singupInput: SigupInput!): LoginResponse!
 }
 
 input CreateItemInput {
@@ -31,4 +48,10 @@ input UpdateItemInput {
   quantity: Int!
   quantityUnits: String
   id: String!
+}
+
+input SigupInput {
+  email: String!
+  fullName: String!
+  password: String!
 }
