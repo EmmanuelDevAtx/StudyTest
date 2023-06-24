@@ -16,7 +16,7 @@ export class UsersResolver {
 
   @Query(() => User, { name: 'user' })
   async findOne(@Args('id', { type: () => Int }) id: number):Promise<User> {
-    return this.usersService.findOne(id);
+    throw new Error('No implement')
   }
 
   // @Mutation(() => User)

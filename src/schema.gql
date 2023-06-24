@@ -27,6 +27,7 @@ type Query {
   findItem(id: String!): Item!
   users: [User!]!
   user(id: Int!): User!
+  relative: LoginResponse!
 }
 
 type Mutation {
@@ -35,6 +36,7 @@ type Mutation {
   removeItem(id: ID!): Item!
   removeUser(id: Int!): User!
   signup(singupInput: SigupInput!): LoginResponse!
+  login(loginInput: LoginInput!): LoginResponse!
 }
 
 input CreateItemInput {
@@ -53,5 +55,10 @@ input UpdateItemInput {
 input SigupInput {
   email: String!
   fullName: String!
+  password: String!
+}
+
+input LoginInput {
+  email: String!
   password: String!
 }
