@@ -8,10 +8,10 @@ export class CreateItemInput {
   @IsString()
   name:string;
 
-  @Field(()=> Int)
-  @IsInt()
-  @IsPositive()
-  quantity: number;
+  // @Field(()=> Int)
+  // @IsInt()
+  // @IsPositive()
+  // quantity: number;
 
   @Field(()=> String, {nullable : true})
   @IsString()

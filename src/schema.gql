@@ -2,13 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Item {
-  id: ID!
-  name: String!
-  quantity: Int!
-  quantityUnits: String
-}
-
 type User {
   id: ID!
   fullName: String!
@@ -16,6 +9,15 @@ type User {
   roles: [String!]!
   isActive: Boolean!
   lastUpdateBy: User
+  items: [Item!]!
+}
+
+type Item {
+  id: ID!
+  name: String!
+  quantity: Int!
+  quantityUnits: String
+  user: User
 }
 
 type LoginResponse {
@@ -24,11 +26,11 @@ type LoginResponse {
 }
 
 type Query {
-  items: [Item!]!
-  findItem(id: String!): Item!
+  relative: LoginResponse!
   users(roles: [ValidRoles!] = []): [User!]!
   user(id: ID!): User!
-  relative: LoginResponse!
+  items: [Item!]!
+  findItem(id: String!): Item!
 }
 
 enum ValidRoles {
@@ -38,35 +40,13 @@ enum ValidRoles {
 }
 
 type Mutation {
+  signup(singupInput: SigupInput!): LoginResponse!
+  login(loginInput: LoginInput!): LoginResponse!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  blockUser(id: ID!): User!
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!): Item!
   removeItem(id: ID!): Item!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  blockUser(id: ID!): User!
-  signup(singupInput: SigupInput!): LoginResponse!
-  login(loginInput: LoginInput!): LoginResponse!
-}
-
-input CreateItemInput {
-  name: String!
-  quantity: Int!
-  quantityUnits: String
-}
-
-input UpdateItemInput {
-  name: String!
-  quantity: Int!
-  quantityUnits: String
-  id: String!
-}
-
-input UpdateUserInput {
-  email: String
-  fullName: String
-  password: String
-  id: String!
-  roles: [ValidRoles!]
-  isActive: Boolean
 }
 
 input SigupInput {
@@ -78,4 +58,25 @@ input SigupInput {
 input LoginInput {
   email: String!
   password: String!
+}
+
+input UpdateUserInput {
+  email: String
+  fullName: String
+  password: String
+  id: String!
+  roles: [ValidRoles!]
+  isActive: Boolean
+}
+
+input CreateItemInput {
+  name: String!
+  quantityUnits: String
+}
+
+input UpdateItemInput {
+  name: String!
+  quantityUnits: String
+  id: String!
+  quantity: Int!
 }
