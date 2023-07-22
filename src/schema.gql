@@ -17,7 +17,7 @@ type Item {
   name: String!
   quantity: Int!
   quantityUnits: String
-  user: User
+  user: User!
 }
 
 type LoginResponse {
