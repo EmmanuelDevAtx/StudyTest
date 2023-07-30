@@ -25,8 +25,10 @@ export class UsersResolver {
   async findAll(
     @Args() validRoles: ValidRolesArgs,
     @CurrentUser([ValidRoles.admin]) user: User,
+    @Args() paginationArgs: PaginationArgs,
+    @Args() seatchArgs: SearchArgs
   ):Promise<User[]> {
-    return await this.usersService.findAll(validRoles.roles);
+    return await this.usersService.findAll(validRoles.roles, paginationArgs, seatchArgs);
   }
 
   @Query(() => User, { name: 'user' })
@@ -45,11 +47,6 @@ export class UsersResolver {
     
     return await this.usersService.update(updateUserInput.id, updateUserInput, user);
   }
-
-  // @Mutation(() => User)
-  // async removeUser(@Args('id', { type: () => Int }) id: number): Promise<User> {
-  //   return await this.usersService.blockUser(id);
-  // }
 
   @Mutation(() => User, {name: 'blockUser'})
   async blockUser(
