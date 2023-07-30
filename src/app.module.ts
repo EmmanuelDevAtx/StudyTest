@@ -8,6 +8,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtService } from '@nestjs/jwt';
+import { SeedModule } from './seed/seed.module';
+
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -15,7 +18,7 @@ import { JwtService } from '@nestjs/jwt';
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT,
       username: 'postgres',
-      password: 'dBpasswordTest123',
+      password: 'algunpassword',
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
@@ -43,7 +46,7 @@ import { JwtService } from '@nestjs/jwt';
   //   driver: ApolloDriver,
   //   autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
   // }), 
-  ItemsModule, UsersModule, AuthModule,],
+  ItemsModule, UsersModule, AuthModule, SeedModule,],
   controllers: [],
   providers: [],
 })

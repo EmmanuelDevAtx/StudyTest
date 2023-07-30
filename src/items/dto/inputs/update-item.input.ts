@@ -12,11 +12,6 @@ export class UpdateItemInput extends PartialType(CreateItemInput) {
   @IsString()
   name:string;
 
-  @Field(()=> Int)
-  @IsInt()
-  @IsPositive()
-  quantity: number;
-
   @Field(()=> String, {nullable : true})
   @IsString()
   @IsOptional()

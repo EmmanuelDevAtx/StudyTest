@@ -17,27 +17,38 @@ export class ItemsResolver {
     @CurrentUser() user:User,
     @Args('createItemInput') createItemInput: CreateItemInput
     ): Promise<Item> {
-    return this.itemsService.create(createItemInput, user);
+    return await this.itemsService.create(createItemInput, user);
   }
 
-  @Query(() => [Item], { name: 'items' })
-  async findAll():Promise<Item[]> {
-    return await this.itemsService.findAll();
+  @Query(() => [Item], { name: 'findAllitems' })
+  async findAll(
+    @CurrentUser() user:User,
+  ):Promise<Item[]> {
+    return await this.itemsService.findAll(user);
   }
 
   @Query(() => Item, { name: 'findItem' })
-  async findOne(@Args('id', { type: () => String }) id: string): Promise<Item> {
-    return await this.itemsService.findOne(id);
+  async findOne(
+    @Args('id', { type: () => String }) id: string,
+    @CurrentUser() user:User,
+    ): Promise<Item> {
+    return await this.itemsService.findOne(id, user);
   }
 
   @Mutation(() => Item)
-  async updateItem(@Args('updateItemInput') updateItemInput: UpdateItemInput): Promise<Item> {
-    return await this.itemsService.update(updateItemInput.id,updateItemInput);
+  async updateItem(
+    @Args('updateItemInput') updateItemInput: UpdateItemInput,
+    @CurrentUser() user:User
+    ): Promise<Item> {
+    return await this.itemsService.update(updateItemInput.id,updateItemInput, user);
   }
 
   @Mutation(() => Item)
-  async removeItem(@Args('id', { type: () => ID }) id: string): Promise<Item>{
-    return await this.itemsService.remove(id);
+  async removeItem(
+    @Args('id', { type: () => ID }) id: string,
+    @CurrentUser() user:User,
+    ): Promise<Item>{
+    return await this.itemsService.remove(id, user);
   }
 }
 function UserGuards(): (target: typeof ItemsResolver) => void | typeof ItemsResolver {

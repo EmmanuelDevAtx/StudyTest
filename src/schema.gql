@@ -10,12 +10,12 @@ type User {
   isActive: Boolean!
   lastUpdateBy: User
   items: [Item!]!
+  itemCount: Int!
 }
 
 type Item {
   id: ID!
   name: String!
-  quantity: Int!
   quantityUnits: String
   user: User!
 }
@@ -29,7 +29,7 @@ type Query {
   relative: LoginResponse!
   users(roles: [ValidRoles!] = []): [User!]!
   user(id: ID!): User!
-  items: [Item!]!
+  findAllitems: [Item!]!
   findItem(id: String!): Item!
 }
 
@@ -47,6 +47,9 @@ type Mutation {
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!): Item!
   removeItem(id: ID!): Item!
+
+  """Ejecuta la construcción de la base de datos"""
+  executeSeed: Boolean!
 }
 
 input SigupInput {
@@ -78,5 +81,4 @@ input UpdateItemInput {
   name: String!
   quantityUnits: String
   id: String!
-  quantity: Int!
 }
