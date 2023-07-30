@@ -61,17 +61,16 @@ export class SeedService {
     }
     
     async loadUsers ():Promise<User> {
-        const users = [];
-
-        await SEED_USERS.map(async (item)=>{
-           users.push( await this.userService.create(item))
+        const users = await SEED_USERS.map(async (item)=>{
+            return await this.userService.create(item)
+            
         });
+        await Promise.all( users )
         return users[0]
     }
 
     async loadItems (user : User):Promise<void> {
         const itemArray = [];
-
         await SEED_ITEMS.map(async (item)=>{
             itemArray.push( await this.itemService.create(item, user));
         });
