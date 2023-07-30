@@ -18,7 +18,7 @@ export class Item {
   @Field(()=> String, { nullable: true})
   quantityUnits?: string;
 
-  @ManyToOne( ()=>  User, (user) => user.items, { nullable: false} )
+  @ManyToOne( ()=>  User, (user) => user.items, { nullable: true} )
   @Index('userId-index')
   @Field(() => User)
   user:User;

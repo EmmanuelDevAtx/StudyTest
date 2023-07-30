@@ -6,6 +6,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from 'src/users/entities/user.entity';
+import { PaginationArgs } from 'src/common/dto/args/pagination';
 
 @Resolver(() => Item)
 @UseGuards(JwtAuthGuard)
@@ -23,8 +24,10 @@ export class ItemsResolver {
   @Query(() => [Item], { name: 'findAllitems' })
   async findAll(
     @CurrentUser() user:User,
+    @Args() pagination:PaginationArgs
   ):Promise<Item[]> {
-    return await this.itemsService.findAll(user);
+    console.log({pagination})
+    return await this.itemsService.findAll(user, pagination);
   }
 
   @Query(() => Item, { name: 'findItem' })

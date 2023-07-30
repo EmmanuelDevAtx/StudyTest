@@ -29,7 +29,7 @@ type Query {
   relative: LoginResponse!
   users(roles: [ValidRoles!] = []): [User!]!
   user(id: ID!): User!
-  findAllitems: [Item!]!
+  findAllitems(offset: Int = 0, limit: Int = 10): [Item!]!
   findItem(id: String!): Item!
 }
 

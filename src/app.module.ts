@@ -9,6 +9,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtService } from '@nestjs/jwt';
 import { SeedModule } from './seed/seed.module';
+import { CommonModule } from './common/common.module';
 
 
 @Module({
@@ -46,7 +47,7 @@ import { SeedModule } from './seed/seed.module';
   //   driver: ApolloDriver,
   //   autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
   // }), 
-  ItemsModule, UsersModule, AuthModule, SeedModule,],
+  ItemsModule, UsersModule, AuthModule, SeedModule, CommonModule,],
   controllers: [],
   providers: [],
 })
