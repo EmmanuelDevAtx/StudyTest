@@ -30,7 +30,7 @@ export class ItemsService {
     .where(` "userId" = :user`, {user:user.id})
     
     if( search ){
-      queryBuilder.andWhere('LOWER(name) like: name',{name : `%${search.toLowerCase()}%`})
+      queryBuilder.andWhere('LOWER(name) like :name',{name : `%${search.toLowerCase()}%`})
     }
 
     return await queryBuilder.getMany(); 
@@ -42,7 +42,6 @@ export class ItemsService {
   async findOne(id: string, user: User): Promise<Item> {
     try {
       const item = await this.itemsRepository.findOneBy({id: id, user:{id:user.id}})
-      console.log(item)
       return item;
     } catch (error) {
       console.error('Your error on findOne',error);

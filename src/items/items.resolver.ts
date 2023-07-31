@@ -49,7 +49,7 @@ export class ItemsResolver {
 
   @Mutation(() => Item)
   async removeItem(
-    @Args('id', { type: () => ID }) id: string,
+    @Args('id', { type: () => String }) id: string,
     @CurrentUser() user:User,
     ): Promise<Item>{
     return await this.itemsService.remove(id, user);

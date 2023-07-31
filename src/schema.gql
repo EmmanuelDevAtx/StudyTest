@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type List {
+  id: ID!
+  name: String!
+  user: User!
+  lastUpdateBy: User
+}
+
 type User {
   id: ID!
   fullName: String!
@@ -25,20 +32,14 @@ type LoginResponse {
   user: User!
 }
 
-type List {
-  id: ID!
-  name: String!
-  user: User!
-}
-
 type Query {
   relative: LoginResponse!
   users(roles: [ValidRoles!] = [], offset: Int = 0, limit: Int = 10, search: String): [User!]!
   user(id: ID!): User!
   findAllitems(offset: Int = 0, limit: Int = 10, search: String): [Item!]!
   findItem(id: String!): Item!
-  lists: [List!]!
-  list(id: Int!): List!
+  AllLists(offset: Int = 0, limit: Int = 10, search: String): [List!]!
+  findOneList(id: String!): List!
 }
 
 enum ValidRoles {
@@ -54,13 +55,13 @@ type Mutation {
   blockUser(id: ID!): User!
   createItem(createItemInput: CreateItemInput!): Item!
   updateItem(updateItemInput: UpdateItemInput!): Item!
-  removeItem(id: ID!): Item!
+  removeItem(id: String!): Item!
 
   """Ejecuta la construcción de la base de datos"""
   executeSeed: Boolean!
   createList(createListInput: CreateListInput!): List!
   updateList(updateListInput: UpdateListInput!): List!
-  removeList(id: Int!): List!
+  removeList(id: ID!): List!
 }
 
 input SigupInput {
@@ -99,6 +100,6 @@ input CreateListInput {
 }
 
 input UpdateListInput {
-  name: String
-  id: Int!
+  name: String!
+  id: String!
 }
