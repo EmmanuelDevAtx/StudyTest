@@ -25,12 +25,20 @@ type LoginResponse {
   user: User!
 }
 
+type List {
+  id: ID!
+  name: String!
+  user: User!
+}
+
 type Query {
   relative: LoginResponse!
   users(roles: [ValidRoles!] = [], offset: Int = 0, limit: Int = 10, search: String): [User!]!
   user(id: ID!): User!
   findAllitems(offset: Int = 0, limit: Int = 10, search: String): [Item!]!
   findItem(id: String!): Item!
+  lists: [List!]!
+  list(id: Int!): List!
 }
 
 enum ValidRoles {
@@ -50,6 +58,9 @@ type Mutation {
 
   """Ejecuta la construcción de la base de datos"""
   executeSeed: Boolean!
+  createList(createListInput: CreateListInput!): List!
+  updateList(updateListInput: UpdateListInput!): List!
+  removeList(id: Int!): List!
 }
 
 input SigupInput {
@@ -81,4 +92,13 @@ input UpdateItemInput {
   name: String!
   quantityUnits: String
   id: String!
+}
+
+input CreateListInput {
+  name: String!
+}
+
+input UpdateListInput {
+  name: String
+  id: Int!
 }

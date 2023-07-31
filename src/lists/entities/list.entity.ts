@@ -2,24 +2,20 @@ import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { User } from 'src/users/entities/user.entity';
 import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity({ name: 'items'})
+@Entity({ name: 'lists'})
 @ObjectType()
-export class Item {
-
+export class List {
+  
   @PrimaryGeneratedColumn('uuid')
   @Field( ()=> ID)
-  id: string;
+  id: string
 
   @Column()
   @Field(()=> String)
-  name:string;
-
-  @Column({ nullable : true})
-  @Field(()=> String, { nullable: true})
-  quantityUnits?: string;
+  name:string
 
   @ManyToOne( ()=>  User, (user) => user.items, { nullable: true  } )
-  @Index('userId-index')
-  @Field(() => User)
-  user:User;
+  @Field( () => User)
+  @Index('userId-list-index')
+  user: User
 }
