@@ -3,6 +3,7 @@ import { ListsService } from './lists.service';
 import { ListsResolver } from './lists.resolver';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { List } from './entities/list.entity';
+import { ListItemModule } from 'src/list-item/list-item.module';
 
 @Module({
   providers: [
@@ -10,7 +11,9 @@ import { List } from './entities/list.entity';
     ListsService
   ],
   imports: [ 
-    TypeOrmModule.forFeature([ List ])],
+    TypeOrmModule.forFeature([ List ]),
+    ListItemModule
+  ],
   exports: [
     ListsService,
     TypeOrmModule

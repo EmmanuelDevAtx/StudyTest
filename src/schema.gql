@@ -2,13 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type List {
-  id: ID!
-  name: String!
-  user: User!
-  lastUpdateBy: User
-}
-
 type User {
   id: ID!
   fullName: String!
@@ -18,6 +11,23 @@ type User {
   lastUpdateBy: User
   itemCount: Int!
   items(offset: Int = 0, limit: Int = 10, search: String): [Item!]!
+}
+
+type List {
+  id: ID!
+  name: String!
+  user: User!
+  lastUpdateBy: User
+  items(offset: Int = 0, limit: Int = 10, search: String): [ListItem!]!
+  totalItems: Int!
+}
+
+type ListItem {
+  id: String!
+  quantity: Float!
+  completed: Boolean!
+  list: List!
+  item: Item!
 }
 
 type Item {
@@ -62,6 +72,7 @@ type Mutation {
   createList(createListInput: CreateListInput!): List!
   updateList(updateListInput: UpdateListInput!): List!
   removeList(id: ID!): List!
+  createListItem(createListItemInput: CreateListItemInput!): ListItem!
 }
 
 input SigupInput {
@@ -102,4 +113,11 @@ input CreateListInput {
 input UpdateListInput {
   name: String!
   id: String!
+}
+
+input CreateListItemInput {
+  quantity: Float = 0
+  completed: Boolean = false
+  listId: ID!
+  itemId: ID!
 }

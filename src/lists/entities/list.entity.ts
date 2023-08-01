@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ListItem } from 'src/list-item/entities/list-item.entity';
 import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'lists'})
 @ObjectType()
@@ -24,4 +25,8 @@ export class List {
   @JoinColumn({name :'lastUpdateBy'})
   @Field( () => User, {nullable: true})
   lastUpdateBy?: User;
+
+
+  @OneToMany(()=> ListItem, (listItem)=> listItem.list, {lazy:true})
+  listItem: ListItem[]
 }

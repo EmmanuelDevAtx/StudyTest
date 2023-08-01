@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int, ID } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ID, ResolveField, Parent } from '@nestjs/graphql';
 import { ItemsService } from './items.service';
 import { Item } from './entities/item.entity';
 import { CreateItemInput, UpdateItemInput } from './dto/inputs';
@@ -8,6 +8,8 @@ import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
 import { User } from 'src/users/entities/user.entity';
 import { PaginationArgs } from 'src/common/dto/args/pagination';
 import { SearchArgs } from 'src/common/dto/args';
+import { ListItem } from 'src/list-item/entities/list-item.entity';
+import { List } from 'src/lists/entities/list.entity';
 
 @Resolver(() => Item)
 @UseGuards(JwtAuthGuard)
@@ -54,8 +56,5 @@ export class ItemsResolver {
     ): Promise<Item>{
     return await this.itemsService.remove(id, user);
   }
-}
-function UserGuards(): (target: typeof ItemsResolver) => void | typeof ItemsResolver {
-  throw new Error('Function not implemented.');
 }
 
