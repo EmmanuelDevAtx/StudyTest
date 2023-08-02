@@ -18,10 +18,14 @@ import { ListItemModule } from './list-item/list-item.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
+      ssl: ( process.env.STATE === 'prod') ? {
+        rejectUnauthorized: false,
+        sslmode: 'require'
+      }: false as any,
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT,
-      username: 'postgres',
-      password: 'algunpassword',
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
@@ -45,14 +49,16 @@ import { ListItemModule } from './list-item/list-item.module';
         }
       }
     }),
-  //   GraphQLModule.forRoot<ApolloDriverConfig>({
-  //   driver: ApolloDriver,
-  //   autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-  // }), 
   ItemsModule, UsersModule, AuthModule, SeedModule, CommonModule, ListsModule, ListItemModule,],
   controllers: [],
   providers: [],
 })
 export class AppModule {
-
+    constructor(){
+      console.log("host:", process.env.DB_HOST,)
+      console.log("port:", +process.env.DB_PORT,)
+      console.log("username:", process.env.DB_USERNAME,)
+      console.log("password:", process.env.DB_PASSWORD,)
+      console.log("database:", process.env.DB_NAME,)
+    }
 }
