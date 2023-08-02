@@ -54,11 +54,11 @@ import { ListItemModule } from './list-item/list-item.module';
   providers: [],
 })
 export class AppModule {
-    constructor(){
-      console.log("host:", process.env.DB_HOST,)
-      console.log("port:", +process.env.DB_PORT,)
-      console.log("username:", process.env.DB_USERNAME,)
-      console.log("password:", process.env.DB_PASSWORD,)
-      console.log("database:", process.env.DB_NAME,)
-    }
+    // constructor(){
+    //   console.log("host:", process.env.DB_HOST,)
+    //   console.log("port:", +process.env.DB_PORT,)
+    //   console.log("username:", process.env.DB_USERNAME,)
+    //   console.log("password:", process.env.DB_PASSWORD,)
+    //   console.log("database:", process.env.DB_NAME,)
+    // }
 }
